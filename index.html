@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+    />
+    <title>Download</title>
+  </head>
+  <body>
+    <div class="download-container">
+      <div class="download-btn">
+        <span>Continue Download</span>
+      </div>
+      <div class="download-auto"></div>
+      <div class="download-waiting">Please wait..</div>
+      <div class="download-text">
+        If download doesn't work, press
+        <a href="#" class="download-link">continue</a>.
+      </div>
+    </div>
+  </body>
+  <script>
+    const btn = document.querySelector(".download-btn");
+    const downloadAuto = document.querySelector(".download-auto");
+    const downloadWaiting = document.querySelector(".download-waiting");
+    const downloadText = document.querySelector(".download-text");
+    const downloadLink = document.querySelector(".download-link");
+
+    btn.addEventListener("click", () => {
+      btn.style.display = "none";
+      downloadAuto.style.display = "initial";
+      downloadAuto.innerHTML =
+        "Download will begin automatically after <span>" +
+        10 +
+        "</span> seconds.";
+
+      let timeleft = 10;
+      const downloadTime = setInterval(() => {
+        timeleft -= 1;
+        downloadAuto.innerHTML =
+          "Download will begin automatically after <span>" +
+          timeleft +
+          "</span> seconds.";
+
+        if (timeleft <= 0) {
+          clearInterval(downloadTime);
+          downloadWaiting.style.display = "initial";
+
+          setTimeout(() => {
+            downloadWaiting.style.display = "none";
+            downloadText.style.display = "initial";
+
+            window.location.href = "1.zip";
+            downloadLink.href = "1.zip";
+          }, 4000);
+        }
+      }, 1000);
+    });
+  </script>
+</html>
